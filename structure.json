@@ -1,0 +1,32 @@
+{
+  "src": {
+    "main": {
+      "java": {
+        "com": {
+          "facudev": {
+            "webscrapper": {
+              "models": {
+                "Webpage.java": "package com.facudev.webscrapper.models;\r\n\r\nimport jakarta.persistence.*;\r\nimport lombok.Data;\r\n\r\n@Entity\r\n@Data\r\n@Table(name = \"webpage\")\r\npublic class Webpage {\r\n\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\r\n    private Integer id;\r\n    private String domain;\r\n    private String url;\r\n    private String title;\r\n    private String description;\r\n    private String picture;\r\n    private Integer rank;\r\n\r\n}\r\n"
+              },
+              "WebscrapperApplication.java": "package com.facudev.webscrapper;\n\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\n\n@SpringBootApplication\npublic class WebscrapperApplication {\n\n\tpublic static void main(String[] args) {\n\t\tSpringApplication.run(WebscrapperApplication.class, args);\n\t}\n\n}\n"
+            }
+          }
+        }
+      },
+      "resources": {
+        "application.properties": "spring.application.name=webscrapper\nspring.config.import=optional:file:.env[.properties]\nspring.datasource.url=${SPRING_DATASOURCE_URL}\nspring.datasource.username=${SPRING_DATASOURCE_USERNAME}\nspring.datasource.password=${SPRING_DATASOURCE_PASSWORD}\nspring.jpa.hibernate.ddl-auto=update\nspring.jpa.database-platform=org.hibernate.dialect.MySQLDialect\nspring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver\nspring.profiles.active=${MYENV}\n\n"
+      }
+    },
+    "test": {
+      "java": {
+        "com": {
+          "facudev": {
+            "webscrapper": {
+              "WebscrapperApplicationTests.java": "package com.facudev.webscrapper;\n\nimport org.junit.jupiter.api.Test;\nimport org.springframework.boot.test.context.SpringBootTest;\n\n@SpringBootTest\nclass WebscrapperApplicationTests {\n\n\t@Test\n\tvoid contextLoads() {\n\t}\n\n}\n"
+            }
+          }
+        }
+      }
+    }
+  }
+}
