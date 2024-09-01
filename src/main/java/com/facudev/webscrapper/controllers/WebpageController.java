@@ -2,11 +2,13 @@ package com.facudev.webscrapper.controllers;
 
 import com.facudev.webscrapper.models.Webpage;
 import com.facudev.webscrapper.repository.WebpageRepository;
+import com.facudev.webscrapper.service.WebscrapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +17,21 @@ public class WebpageController {
 
     @Autowired
     WebpageRepository repository;
+    @Autowired
+    WebscrapperService webscrapperService;
 
     @GetMapping("/api/search")
     public List<Webpage> search(@RequestParam("query") String query) {
         List<Webpage> list = new ArrayList<>();
-        Iterable<Webpage> result = repository.findAll();
+        Iterable<Webpage> result = repository.findByText(query);
         for (Webpage webpage : result) {
             list.add(webpage);
         }
         return list;
+    }
+
+    @GetMapping("/api/webscrapper")
+    public void scrapeAndSave(@RequestParam("url") String url) throws IOException {
+        webscrapperService.scrapeAndSave(url);
     }
 }
